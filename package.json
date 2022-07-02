@@ -1,0 +1,61 @@
+{
+	"type": "module",
+	"devDependencies": {
+		"@types/node": "^18.0.0",
+		"prettier": "^2.7.1",
+		"typescript": "^4.7.4",
+		"xo": "^0.50.0"
+	},
+	"xo": {
+		"prettier": true,
+		"rules": {
+			"@typescript-eslint/consistent-type-imports": [
+				"error",
+				{
+					"prefer": "type-imports"
+				}
+			],
+			"curly": [
+				"error",
+				"all"
+			],
+			"import/newline-after-import": "error",
+			"import/order": [
+				"error",
+				{
+					"alphabetize": {
+						"caseInsensitive": true,
+						"order": "asc"
+					},
+					"groups": [
+						[
+							"builtin",
+							"external",
+							"internal",
+							"unknown",
+							"parent",
+							"sibling",
+							"index",
+							"object"
+						],
+						"type"
+					],
+					"newlines-between": "always"
+				}
+			]
+		}
+	},
+	"prettier": {
+		"useTabs": true,
+		"overrides": [
+			{
+				"files": "{.vscode/*.json,tsconfig.*.json,**/tsconfig.json}",
+				"options": {
+					"parser": "json5",
+					"quoteProps": "preserve",
+					"trailingComma": "all"
+				}
+			}
+		]
+	}
+}

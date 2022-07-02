@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# Treat all .ts files as typescript
+*.ts linguist-language=TypeScript
