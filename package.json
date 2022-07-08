@@ -9,6 +9,12 @@
 	"xo": {
 		"prettier": true,
 		"rules": {
+			"@typescript-eslint/ban-types": [
+				"error",
+				{
+					"extendDefaults": true
+				}
+			],
 			"@typescript-eslint/consistent-type-imports": [
 				"error",
 				{
