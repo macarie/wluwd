@@ -47,6 +47,7 @@
 	},
 	"prettier": {
 		"useTabs": true,
+		"bracketSpacing": true,
 		"overrides": [
 			{
 				"files": "{.vscode/*.json,tsconfig.*.json,**/tsconfig.json}",
