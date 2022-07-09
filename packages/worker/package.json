@@ -4,8 +4,8 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"import": "./compiled/node/index.js",
-			"types": "./compiled/node/index.js"
+			"import": "./compiled/index.js",
+			"types": "./compiled/index.js"
 		}
 	},
 	"scripts": {
