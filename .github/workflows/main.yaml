@@ -30,6 +30,6 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
 
-      - run: pnpm recursive install
-      - run: pnpm run --recursive compile:dts
-      - run: pnpm run --recursive --parallel lint
+      - run: pnpm --color recursive install
+      - run: pnpm --color run --recursive compile:dts
+      - run: pnpm --color run --recursive --parallel lint
