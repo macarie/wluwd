@@ -16,6 +16,12 @@ importers:
       typescript: 4.7.4
       xo: 0.50.0
 
+  packages/runtime:
+    specifiers:
+      '@wluwd/worker': workspace:^0.0.1
+    dependencies:
+      '@wluwd/worker': link:../worker
+
 packages:
 
   /@babel/code-frame/7.18.6:

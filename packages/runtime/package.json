@@ -1,0 +1,21 @@
+{
+	"name": "@wluwd/runtime",
+	"version": "0.0.1",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./compiled/suite.js",
+			"types": "./compiled/suite.d.ts"
+		}
+	},
+	"scripts": {
+		"clean": "rm -rf compiled",
+		"compile:dts": "tsc",
+		"compile:ts": "esbuild --outdir=compiled source/{*,**/*}.ts",
+		"lint": "xo --cwd ../.. packages/runtime/source",
+		"typecheck": "tsc --emitDeclarationOnly false --noEmit"
+	},
+	"dependencies": {
+		"@wluwd/worker": "workspace:^0.0.1"
+	}
+}
