@@ -26,6 +26,11 @@ const runTestsAndSendResults = async (suiteName: string, tests: TestStore[]) =>
 		}),
 	);
 
+/**
+ * Create a new {@link Test `Test`} instance.
+ *
+ * @param suiteName The name of your suite.
+ */
 export const suite = (suiteName: string) => {
 	const testsWithoutModifiers: TestStore[] = [];
 	const testsWithOnlyModifier: TestStore[] = [];
