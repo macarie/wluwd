@@ -14,5 +14,8 @@
 		"compile:ts": "esbuild --outdir=compiled source/{*,**/*}.ts",
 		"lint": "xo --cwd ../.. packages/runtime/source",
 		"typecheck": "tsc --emitDeclarationOnly false --noEmit"
+	},
+	"dependencies": {
+		"@wluwd/worker": "workspace:^0.0.1"
 	}
 }
