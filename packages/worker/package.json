@@ -5,7 +5,7 @@
 	"exports": {
 		".": {
 			"import": "./compiled/index.js",
-			"types": "./compiled/index.js"
+			"types": "./compiled/index.d.ts"
 		}
 	},
 	"scripts": {
