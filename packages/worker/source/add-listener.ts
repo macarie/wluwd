@@ -30,6 +30,9 @@ type GetWorkerOnHandler<Event extends string> = Extract<
 	[Event, any]
 >[1];
 
+/**
+ * Attach a listener to a worker.
+ */
 export const addListener = <Event extends 'message' | 'error' | 'exit'>(
 	worker: Worker,
 	event: Event,
