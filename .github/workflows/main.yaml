@@ -31,6 +31,6 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm recursive install
-      - run: pnpm run --recursive --parallel lint
       - run: pnpm run --recursive compile:dts
+      - run: pnpm run --recursive --parallel lint
       - run: pnpm run --recursive --parallel typecheck
