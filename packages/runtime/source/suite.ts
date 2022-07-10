@@ -76,10 +76,16 @@ export const suite = (suiteName: string) => {
 		if (numberOfTestsWithOnlyModifier > 0) {
 			sendSkippedTests(suiteName, testsWithoutModifiers);
 
-			return runTestsAndSendResults(suiteName, testsWithOnlyModifier);
+			await runTestsAndSendResults(suiteName, testsWithOnlyModifier);
+		} else {
+			await runTestsAndSendResults(suiteName, testsWithoutModifiers);
 		}
 
-		return runTestsAndSendResults(suiteName, testsWithoutModifiers);
+		send({
+			type: 'done',
+			suiteName,
+			data: {},
+		});
 	};
 
 	let isMicrotaskSet = false;
