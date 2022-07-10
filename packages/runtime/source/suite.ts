@@ -51,11 +51,29 @@ export const suite = (suiteName: string) => {
 	const testsWithSkipModifier: TestStore[] = [];
 
 	const run = async () => {
-		if (testsWithSkipModifier.length > 0) {
+		const numberOfTestsWithSkipModifier = testsWithSkipModifier.length;
+		const numberOfTestsWithOnlyModifier = testsWithOnlyModifier.length;
+		const numberOfTestsWithoutModifiers = testsWithoutModifiers.length;
+
+		send({
+			type: 'planned',
+			suiteName,
+			data: {
+				withSkipModifier: numberOfTestsWithSkipModifier,
+				withOnlyModifier: numberOfTestsWithOnlyModifier,
+				withoutModifiers: numberOfTestsWithoutModifiers,
+				total:
+					numberOfTestsWithSkipModifier +
+					numberOfTestsWithOnlyModifier +
+					numberOfTestsWithoutModifiers,
+			},
+		});
+
+		if (numberOfTestsWithSkipModifier > 0) {
 			sendSkippedTests(suiteName, testsWithSkipModifier);
 		}
 
-		if (testsWithOnlyModifier.length > 0) {
+		if (numberOfTestsWithOnlyModifier > 0) {
 			sendSkippedTests(suiteName, testsWithoutModifiers);
 
 			return runTestsAndSendResults(suiteName, testsWithOnlyModifier);
