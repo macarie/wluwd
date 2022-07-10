@@ -13,7 +13,14 @@ type Test = TestFunction & {
 
 const sendSkippedTests = (suiteName: string, tests: TestStore[]) => {
 	for (const [, testName] of tests) {
-		send({ result: true, suiteName, testName });
+		send({
+			type: 'result',
+			suiteName,
+			data: {
+				result: true,
+				testName,
+			},
+		});
 	}
 };
 
@@ -22,7 +29,14 @@ const runTestsAndSendResults = async (suiteName: string, tests: TestStore[]) =>
 		tests.map(async ([fn, testName]) => {
 			const result = await runtime(fn);
 
-			send({ result, suiteName, testName });
+			send({
+				type: 'result',
+				suiteName,
+				data: {
+					result,
+					testName,
+				},
+			});
 		}),
 	);
 
