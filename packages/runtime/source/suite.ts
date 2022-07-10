@@ -13,7 +13,14 @@ type Test = TestFunction & {
 
 const sendSkippedTests = (suiteName: string, tests: TestStore[]) => {
 	for (const [, testName] of tests) {
-		send({ result: true, suiteName, testName });
+		send({
+			type: 'result',
+			suiteName,
+			data: {
+				result: true,
+				testName,
+			},
+		});
 	}
 };
 
@@ -22,7 +29,14 @@ const runTestsAndSendResults = async (suiteName: string, tests: TestStore[]) =>
 		tests.map(async ([fn, testName]) => {
 			const result = await runtime(fn);
 
-			send({ result, suiteName, testName });
+			send({
+				type: 'result',
+				suiteName,
+				data: {
+					result,
+					testName,
+				},
+			});
 		}),
 	);
 
@@ -37,17 +51,41 @@ export const suite = (suiteName: string) => {
 	const testsWithSkipModifier: TestStore[] = [];
 
 	const run = async () => {
-		if (testsWithSkipModifier.length > 0) {
+		const numberOfTestsWithSkipModifier = testsWithSkipModifier.length;
+		const numberOfTestsWithOnlyModifier = testsWithOnlyModifier.length;
+		const numberOfTestsWithoutModifiers = testsWithoutModifiers.length;
+
+		send({
+			type: 'planned',
+			suiteName,
+			data: {
+				withSkipModifier: numberOfTestsWithSkipModifier,
+				withOnlyModifier: numberOfTestsWithOnlyModifier,
+				withoutModifiers: numberOfTestsWithoutModifiers,
+				total:
+					numberOfTestsWithSkipModifier +
+					numberOfTestsWithOnlyModifier +
+					numberOfTestsWithoutModifiers,
+			},
+		});
+
+		if (numberOfTestsWithSkipModifier > 0) {
 			sendSkippedTests(suiteName, testsWithSkipModifier);
 		}
 
-		if (testsWithOnlyModifier.length > 0) {
+		if (numberOfTestsWithOnlyModifier > 0) {
 			sendSkippedTests(suiteName, testsWithoutModifiers);
 
-			return runTestsAndSendResults(suiteName, testsWithOnlyModifier);
+			await runTestsAndSendResults(suiteName, testsWithOnlyModifier);
+		} else {
+			await runTestsAndSendResults(suiteName, testsWithoutModifiers);
 		}
 
-		return runTestsAndSendResults(suiteName, testsWithoutModifiers);
+		send({
+			type: 'done',
+			suiteName,
+			data: {},
+		});
 	};
 
 	let isMicrotaskSet = false;
